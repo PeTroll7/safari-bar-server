@@ -1,6 +1,7 @@
-const app = require('express');
+const express = require('express');
+const app = express();
 const { Socket } = require('socket.io');
-const httpServer = require('http').createServer(app);
+const httpServer = require('http').createServer(express);
 const io = require('socket.io')(httpServer, {
   cors: true,
   origins: ['*'],
@@ -108,6 +109,11 @@ io.on('connection', (socket) => {
     })
   });
 });
+
+app.get("/", (req, res) =>{
+  res.status(200).json({message: "startOK"})
+})
+
 
 const PORT = process.env.PORT || 3000;
 
